@@ -32,6 +32,8 @@ func Collector(w http.ResponseWriter, r *http.Request) {
 	WorkQueue <- *work
 	fmt.Println("Work request queued")
 
+	<-work.Done
+	fmt.Println("unblock")
 	// And let the user know their work request was created.
 	//w.WriteHeader(http.StatusCreated)
 	return

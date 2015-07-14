@@ -48,6 +48,7 @@ func (w Worker) Start() {
 					return
 				}
 				fmt.Fprintf(work.Writer, string(dat))
+				work.Done <- true
 				fmt.Printf(string(dat))
 
 			case <-w.QuitChan:
