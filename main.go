@@ -1,31 +1,21 @@
 package main
 
 import (
-	"flag"
 	"fmt"
-	"net/http"
-)
-
-var (
-	NWorkers = flag.Int("n", 4, "The number of workers to start")
-	HTTPAddr = flag.String("http", "127.0.0.1:8000", "Address to listen for HTTP requests on")
+	"time"
 )
 
 func main() {
-	// Parse the command-line flags.
-	flag.Parse()
 
-	// Start the dispatcher.
-	fmt.Println("Starting the dispatcher")
-	StartDispatcher(*NWorkers)
-
-	// Register our collector as an HTTP handler function.
-	fmt.Println("Registering the collector")
-	http.HandleFunc("/work", Collector)
-
-	// Start the HTTP server!
-	fmt.Println("HTTP server listening on", *HTTPAddr)
-	if err := http.ListenAndServe(*HTTPAddr, nil); err != nil {
-		fmt.Println(err.Error())
+	Start(2, 3)
+	m := []int{1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14}
+	for l := range m {
+		fmt.Printf("\n\nstuck in for loop %d \n\n", l)
+		s := Karthic{}
+		s.test = l
+		CollectTasks(s)
 	}
+	StopAllWorkers(2)
+	time.Sleep(3 * time.Second)
+
 }
