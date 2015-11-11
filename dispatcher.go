@@ -25,6 +25,7 @@ func StartDispatcher(nworkers int) {
 			case work := <-WorkQueue:
 				fmt.Println("Received work request")
 				// go func() {
+
 				worker := <-WorkerQueue
 
 				fmt.Println("Dispatching work request")
@@ -40,11 +41,12 @@ func StartDispatcher(nworkers int) {
 
 func StopAllWorkers(nWorkers int) {
 	var quitChan chan bool
+	//the dispatcher might be blocked waiting for the Worker from worker queue, and in that case
 	EndDispatcher <- true
 
 	for i := 0; i < nWorkers; i++ {
 		quitChan = <-QuitChanQueue
-		go func(quitChan chan bool) {
+		func(quitChan chan bool) {
 			quitChan <- true
 		}(quitChan)
 	}

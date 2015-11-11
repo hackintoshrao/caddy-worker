@@ -2,7 +2,7 @@ package main
 
 import (
 	"fmt"
-	//"time"
+	"time"
 )
 
 type Karthic struct {
@@ -11,6 +11,6 @@ type Karthic struct {
 
 func (k Karthic) ExecuteTask() interface{} {
 	fmt.Printf("\nInside task without sleep %d\n", k.test)
-	//time.Sleep(3 * time.Second)
+	time.Sleep(6 * time.Second)
 	return k.test
 }
